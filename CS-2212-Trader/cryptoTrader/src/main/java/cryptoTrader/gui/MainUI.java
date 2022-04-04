@@ -1,5 +1,8 @@
 package cryptoTrader.gui;
 
+//added new packages
+import cryptoTrader.utils.*;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -53,6 +56,11 @@ public class MainUI extends JFrame implements ActionListener {
 	private String selectedStrategy = "";
 	private DefaultTableModel dtm;
 	private JTable table;
+	
+	
+	//****************************************added variables 
+	private broker BrokerObj;
+	
 
 	public static MainUI getInstance() {
 		if (instance == null)
@@ -65,8 +73,9 @@ public class MainUI extends JFrame implements ActionListener {
 
 		// Set window title
 		super("Crypto Trading Tool");
-
-		// Set top bar
+		
+		//Construct Broker Obj
+		BrokerObj = new broker();
 
 
 		JPanel north = new JPanel();
@@ -203,6 +212,9 @@ public class MainUI extends JFrame implements ActionListener {
 					}
 					String strategyName = strategyObject.toString();
 					System.out.println(traderName + " " + Arrays.toString(coinNames) + " " + strategyName);
+					System.out.println("\n*****SENDING TO BROKER***** \n");
+					BrokerObj.addBroker(traderName, coinNames, strategyName);
+					BrokerObj.getBroker(0);
 	        }
 			stats.removeAll();
 			DataVisualizationCreator creator = new DataVisualizationCreator();
