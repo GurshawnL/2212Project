@@ -228,7 +228,7 @@ public class MainUI extends JFrame implements ActionListener {
 			
 			if (indexNull != -1) { //if index null was a real value
 				
-				priceOfCoins = new Double[indexNull];
+				priceOfCoins = new Double[indexNull]; //price of coins
 				listOfCoins = BrokerObj.getSubArray(listOfCoins, indexNull);
 				System.out.println(Arrays.toString(listOfCoins)); //without nulls
 				

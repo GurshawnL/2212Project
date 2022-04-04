@@ -22,7 +22,7 @@ public class AvailableCryptoList {
 	
 	//abbrevations
 	private Map<String, String> AbbrevMap = new HashMap<>();
-	private String[][] COINSABBREV = {{"BTC", "Bitcoin"}, {"ETH", "Ethereum"}, {"ADA", "Cardano"}, {"USD Coin", "USDC"}, {"USDT", "Tether"},
+	private String[][] COINSABBREV = {{"BTC", "Bitcoin"}, {"ETH", "Ethereum"}, {"ADA", "Cardano"}, {"USDC", "USD Coin"}, {"USDT", "Tether"},
 			{"SOL", "Solana"}, {"XRP", "XRP"}, {"DOGE", "Dogecoin"}, {"LTC", "Litecoin"}};
 	
 	public static AvailableCryptoList getInstance() {
