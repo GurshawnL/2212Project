@@ -211,11 +211,17 @@ public class MainUI extends JFrame implements ActionListener {
 						return;
 					}
 					String strategyName = strategyObject.toString();
-					System.out.println(traderName + " " + Arrays.toString(coinNames) + " " + strategyName);
-					System.out.println("\n*****SENDING TO BROKER***** \n");
+					System.out.println(traderName + " " + Arrays.toString(coinNames) + " " + strategyName); //old output
+					
+					//send to broker class
 					BrokerObj.addBroker(traderName, coinNames, strategyName);
-					BrokerObj.getBroker(0);
 	        }
+			
+			//get list of all coins no repeats
+			String[] listOfCoins = BrokerObj.getListOfCoins();
+			System.out.println(Arrays.toString(listOfCoins));
+			
+			
 			stats.removeAll();
 			DataVisualizationCreator creator = new DataVisualizationCreator();
 			creator.createCharts();

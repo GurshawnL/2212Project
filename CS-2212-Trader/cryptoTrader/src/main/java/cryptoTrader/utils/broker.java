@@ -1,5 +1,6 @@
 package cryptoTrader.utils;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class broker { //create a broker object to deal with brokers
@@ -39,12 +40,47 @@ public class broker { //create a broker object to deal with brokers
 	public int getLength() {
 		return this.len;
 	}
+	
+	//return a list of coins with no repeats
+	public String[] getListOfCoins() {
+		String[] allCoins = new String[coinMAX];
+		int lenAllCoins = 0;
+		
+		for (String[] list : coins) {
+			for (String item : list) {
+				if (item != null) {
+					
+					boolean itemExists = false;
+					
+					for (String coins: allCoins) {
+						if (item.equals(coins)) {
+							itemExists = true;
+						}
+					}
+					
+					if (!itemExists) {
+						allCoins[lenAllCoins] = item;
+						lenAllCoins++;
+					}
+					
+				}
+				
+			}
+		}
+		
+		return allCoins;
+		
+	}
 
 	public static void main(String[] args) {
-		String[] newNames = {"Hello", "ETC"};
+		String[] newNames = {"Hello", "ETC", "ADA"};
+		String[] newNames2 = {"BTC", "ETC", "LTC", "ADA"};
 		broker brokerObj = new broker();
 		brokerObj.addBroker("trader-1", newNames, "Strat-1");
-		brokerObj.getBroker(0);
+		brokerObj.addBroker("trader-1", newNames2, "Strat-1");
+		String [] list = brokerObj.getListOfCoins();
+		System.out.println(Arrays.toString(list));
+		
 	}
 
 }
