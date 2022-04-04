@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,8 @@ public class AvailableCryptoList {
 	
 	private Map<String, String> availableCryptosMap = new HashMap<>();
 	private List<String> availableCryptosList = new ArrayList<>();
+	private Map<String, String> AbbrevMap = new HashMap<>();
+	//private String[][] COINSABBREV = {["BTC", "Bitcoin"], ["ETH", "Ethereum"]}
 	
 	public static AvailableCryptoList getInstance() {
 		if (instance == null)
@@ -109,6 +112,12 @@ public class AvailableCryptoList {
 	
 	public String getCryptoID(String cryptoName) {
 		return availableCryptosMap.get(cryptoName);
+	}
+	
+	public static void main (String[] args) {
+		AvailableCryptoList list = new AvailableCryptoList();
+		System.out.println(Arrays.toString(list.getAvailableCryptos()));
+		System.out.println(list.getCryptoID("Ethereum"));
 	}
 
 }

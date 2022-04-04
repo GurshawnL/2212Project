@@ -31,8 +31,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import cryptoTrader.utils.DataVisualizationCreator;
-
 public class MainUI extends JFrame implements ActionListener {
 	/**
 	 * 
@@ -60,6 +58,7 @@ public class MainUI extends JFrame implements ActionListener {
 	
 	//****************************************added variables 
 	private broker BrokerObj;
+	DataFetcher fetcher;
 	
 
 	public static MainUI getInstance() {
@@ -74,8 +73,9 @@ public class MainUI extends JFrame implements ActionListener {
 		// Set window title
 		super("Crypto Trading Tool");
 		
-		//Construct Broker Obj
+		//Construct Objects from other classes
 		BrokerObj = new broker();
+		fetcher = new DataFetcher();
 
 
 		JPanel north = new JPanel();
@@ -224,7 +224,15 @@ public class MainUI extends JFrame implements ActionListener {
 			//Grab index of first null
 			int indexNull = BrokerObj.getFirstNull(listOfCoins);
 			listOfCoins = BrokerObj.getSubArray(listOfCoins, indexNull);
-			//System.out.println(Arrays.toString(listOfCoins)); //without nulls
+			System.out.println(Arrays.toString(listOfCoins)); //without nulls
+			
+			//fetch prices of coins
+			String dateToday = BrokerObj.getDateToday();//today's date
+			
+			//grab prices
+			double price = fetcher.getPriceForCoin("bitcoin", dateToday);
+			System.out.println(price);
+			
 			
 			stats.removeAll();
 			DataVisualizationCreator creator = new DataVisualizationCreator();

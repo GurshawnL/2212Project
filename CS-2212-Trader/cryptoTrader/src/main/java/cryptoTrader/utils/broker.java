@@ -1,6 +1,8 @@
 package cryptoTrader.utils;
 
 import java.util.Arrays;
+import java.text.SimpleDateFormat;  
+import java.util.Date;  
 
 public class broker { //create a broker object to deal with brokers
 	
@@ -95,16 +97,29 @@ public class broker { //create a broker object to deal with brokers
 		
 		return cleanArray;
 	}
+	
+	//get data in dd/mm/yyyy format
+	public String getDateToday() {
+		Date date = new Date();
+		SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
+		String DateToday = simpleDate.format(date);
+		DateToday = DateToday.replace('/', '-');
+		return DateToday;
+	}
 
 	public static void main(String[] args) {
 		String[] newNames = {"Hello", "ETC", "ADA"};
 		String[] newNames2 = {"BTC", "ETC", "LTC", "ADA"};
 		broker brokerObj = new broker();
+		/*
 		brokerObj.addBroker("trader-1", newNames, "Strat-1");
 		brokerObj.addBroker("trader-1", newNames2, "Strat-1");
 		String [] list = brokerObj.getListOfCoins();
 		System.out.println(Arrays.toString(list));
 		
+		System.out.println(brokerObj.getDateToday());
+		
+		*/		
 	}
 
 }
