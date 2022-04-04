@@ -19,8 +19,11 @@ public class AvailableCryptoList {
 	
 	private Map<String, String> availableCryptosMap = new HashMap<>();
 	private List<String> availableCryptosList = new ArrayList<>();
+	
+	//abbrevations
 	private Map<String, String> AbbrevMap = new HashMap<>();
-	//private String[][] COINSABBREV = {["BTC", "Bitcoin"], ["ETH", "Ethereum"]}
+	private String[][] COINSABBREV = {{"BTC", "Bitcoin"}, {"ETH", "Ethereum"}, {"ADA", "Cardano"}, {"USD Coin", "USDC"}, {"USDT", "Tether"},
+			{"SOL", "Solana"}, {"XRP", "XRP"}, {"DOGE", "Dogecoin"}, {"LTC", "Litecoin"}};
 	
 	public static AvailableCryptoList getInstance() {
 		if (instance == null)
@@ -29,7 +32,7 @@ public class AvailableCryptoList {
 		return instance;
 	}
 	
-	private AvailableCryptoList() {
+	public AvailableCryptoList() {
 		findAvailableCryptos();
 	}
 	
@@ -99,6 +102,11 @@ public class AvailableCryptoList {
 					availableCryptosMap.put(name, id);
 					availableCryptosList.add(name);
 				}
+				
+				//abbrev coins to name
+				for (String[] pair : COINSABBREV) {
+					AbbrevMap.put(pair[0], pair[1]);
+				}
 			}
 
 		} catch (IOException e) {
@@ -114,10 +122,13 @@ public class AvailableCryptoList {
 		return availableCryptosMap.get(cryptoName);
 	}
 	
+	public String getFullName(String AbbrevName) {
+		return AbbrevMap.get(AbbrevName);
+	}
+	
 	public static void main (String[] args) {
 		AvailableCryptoList list = new AvailableCryptoList();
-		System.out.println(Arrays.toString(list.getAvailableCryptos()));
-		System.out.println(list.getCryptoID("Ethereum"));
+		System.out.println(list.getFullName("ADA"));
 	}
 
 }

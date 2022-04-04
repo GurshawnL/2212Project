@@ -58,7 +58,8 @@ public class MainUI extends JFrame implements ActionListener {
 	
 	//****************************************added variables 
 	private broker BrokerObj;
-	DataFetcher fetcher;
+	private DataFetcher fetcher;
+	private AvailableCryptoList AvailCryptoList;
 	
 
 	public static MainUI getInstance() {
@@ -76,7 +77,7 @@ public class MainUI extends JFrame implements ActionListener {
 		//Construct Objects from other classes
 		BrokerObj = new broker();
 		fetcher = new DataFetcher();
-
+		AvailCryptoList = new AvailableCryptoList();
 
 		JPanel north = new JPanel();
 
@@ -219,19 +220,36 @@ public class MainUI extends JFrame implements ActionListener {
 			
 			//get list of all coins no repeats
 			String[] listOfCoins = BrokerObj.getListOfCoins();
+			Double[] priceOfCoins;
 			//System.out.println(Arrays.toString(listOfCoins)); //with nulls
 			
 			//Grab index of first null
 			int indexNull = BrokerObj.getFirstNull(listOfCoins);
-			listOfCoins = BrokerObj.getSubArray(listOfCoins, indexNull);
-			System.out.println(Arrays.toString(listOfCoins)); //without nulls
 			
-			//fetch prices of coins
-			String dateToday = BrokerObj.getDateToday();//today's date
+			if (indexNull != -1) { //if index null was a real value
+				
+				priceOfCoins = new Double[indexNull];
+				listOfCoins = BrokerObj.getSubArray(listOfCoins, indexNull);
+				System.out.println(Arrays.toString(listOfCoins)); //without nulls
+				
+				//fetch prices of coins
+				String dateToday = BrokerObj.getDateToday();//today's date
+				
+				//grab prices
+				for (int i = 0; i < indexNull; i++) {
+					String coin = listOfCoins[i];
+					coin = AvailCryptoList.getFullName(coin);
+					coin = coin.toLowerCase();
+					double price = fetcher.getPriceForCoin(coin, dateToday);
+					priceOfCoins[i] = price;
+				}
+				
+				System.out.println(Arrays.toString(priceOfCoins));
+				
+			} else {
+				System.out.println("Erorr, IndexNull was -1");
+				}
 			
-			//grab prices
-			double price = fetcher.getPriceForCoin("bitcoin", dateToday);
-			System.out.println(price);
 			
 			
 			stats.removeAll();
