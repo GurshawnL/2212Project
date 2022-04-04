@@ -219,8 +219,12 @@ public class MainUI extends JFrame implements ActionListener {
 			
 			//get list of all coins no repeats
 			String[] listOfCoins = BrokerObj.getListOfCoins();
-			System.out.println(Arrays.toString(listOfCoins));
+			//System.out.println(Arrays.toString(listOfCoins)); //with nulls
 			
+			//Grab index of first null
+			int indexNull = BrokerObj.getFirstNull(listOfCoins);
+			listOfCoins = BrokerObj.getSubArray(listOfCoins, indexNull);
+			//System.out.println(Arrays.toString(listOfCoins)); //without nulls
 			
 			stats.removeAll();
 			DataVisualizationCreator creator = new DataVisualizationCreator();

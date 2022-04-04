@@ -1,6 +1,5 @@
 package cryptoTrader.utils;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class broker { //create a broker object to deal with brokers
@@ -69,7 +68,32 @@ public class broker { //create a broker object to deal with brokers
 		}
 		
 		return allCoins;
+	}
+	
+	//return the coin max 
+	public int getCoinMax() {
+		return this.coinMAX;
+	}
+	
+	//index of first null
+	public int getFirstNull(String[] coinList) {
+		int index = 0;
+		for (int i = 0; i < getCoinMax(); i++) {
+			if (coinList[i] == null) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public String[] getSubArray(String[] coinList, int firstNull) {
+		String[] cleanArray = null;
 		
+		if (firstNull != -1) {
+			cleanArray = Arrays.copyOfRange(coinList, 0, firstNull);
+		}
+		
+		return cleanArray;
 	}
 
 	public static void main(String[] args) {
