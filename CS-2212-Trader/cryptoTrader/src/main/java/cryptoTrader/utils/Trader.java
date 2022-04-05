@@ -98,6 +98,10 @@ public class Trader {
 			
 			String[] NewTradeLog = {traderName, StrStrat, NewTrade[2], NewTrade[0].toUpperCase(), NewTrade[1], Double.toString(prices[index]), date};
 			System.out.println(Arrays.toString(NewTradeLog));
+			
+			TradeDB tradedbObj = new TradeDB();
+			tradedbObj.writeData(NewTradeLog);
+			
 		} else {
 			System.out.println("The coin does not exist in the list, no trade was made");
 		}
@@ -131,12 +135,14 @@ public class Trader {
 	//take group of brokers and perform trades for each broker
 	public void performTradesGroup (String[] brokers, String[][] brokerCoins, String[] strategies, int numBrokers, String[] allCoins, Double[] allPrices, String date) {		
 		
-		for (int i = 0; i < numBrokers; i++) {
+		for (int i = 0; i < numBrokers; i++) { //for each broker
+			
+			//make own list of coins
 			String[] newCoinArr = new String[10];
 			Double[] newCoinPriceArr = new Double[10];
 			int newArrLen = 0;
 			
-			
+			//determine strats
 			int strategy = -1;
 			if (strategies[i].equals("Strategy-A")) {
 				strategy = 0;
@@ -148,8 +154,9 @@ public class Trader {
 				strategy = 3;
 			}
 			
+			//go through coins
 			String[] setOfCoins = brokerCoins[i];
-			for (int j = 0; j < allCoins.length; j++) {
+			for (int j = 0; j < allCoins.length; j++) { //check for coins in broker list
 				for (String coin : setOfCoins) {			
 					if (coin.equals(allCoins[j])) {
 						newCoinArr[newArrLen] = allCoins[j];
@@ -159,12 +166,14 @@ public class Trader {
 				}
 			}
 			
+			//cut array to length needed
 			newCoinArr = Arrays.copyOfRange(newCoinArr, 0, newArrLen);
 			newCoinPriceArr = Arrays.copyOfRange(newCoinPriceArr, 0, newArrLen);
 			
 			//System.out.println(Arrays.toString(newCoinArr));
 			//System.out.println(Arrays.toString(newCoinPriceArr));
 			
+			//perform trade with given information
 			performTrade(brokers[i], strategy, newCoinArr, newCoinPriceArr, date);
 		}
 	}
