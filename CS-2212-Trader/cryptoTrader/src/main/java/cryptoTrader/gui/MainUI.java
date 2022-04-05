@@ -60,6 +60,7 @@ public class MainUI extends JFrame implements ActionListener {
 	private broker BrokerObj;
 	private DataFetcher fetcher;
 	private AvailableCryptoList AvailCryptoList;
+	private Trader traderObj;
 	
 
 	public static MainUI getInstance() {
@@ -78,6 +79,7 @@ public class MainUI extends JFrame implements ActionListener {
 		BrokerObj = new broker();
 		fetcher = new DataFetcher();
 		AvailCryptoList = new AvailableCryptoList();
+		traderObj = new Trader();
 
 		JPanel north = new JPanel();
 
@@ -245,6 +247,13 @@ public class MainUI extends JFrame implements ActionListener {
 				}
 				
 				System.out.println(Arrays.toString(priceOfCoins));
+				
+				String[] brokers = BrokerObj.getBrokers();
+				String[][] brokerCoins = BrokerObj.getCoins();
+				String[] brokerStrats = BrokerObj.getStrats();
+				int numBrokers = BrokerObj.getLength();
+				
+				traderObj.performTradesGroup(brokers, brokerCoins, brokerStrats, numBrokers, listOfCoins, priceOfCoins, dateToday);
 				
 			} else {
 				System.out.println("Erorr, IndexNull was -1");

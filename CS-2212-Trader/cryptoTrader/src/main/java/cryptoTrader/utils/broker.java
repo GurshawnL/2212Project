@@ -37,9 +37,24 @@ public class broker { //create a broker object to deal with brokers
 		System.out.println(names[id] + " " + Arrays.toString(coins[id]) + " " + strategies[id]);
 	}
 	
+	//get list of brokers
+	public String[] getBrokers () {
+		return this.names;
+	}
+	
+	//get strats
+	public String[] getStrats() {
+		return this.strategies;
+	}
+	
 	//returns length/number of brokers 
 	public int getLength() {
 		return this.len;
+	}
+	
+	//return the list of coins
+	public String[][] getCoins() {
+		return this.coins;		
 	}
 	
 	//return a list of coins with no repeats
