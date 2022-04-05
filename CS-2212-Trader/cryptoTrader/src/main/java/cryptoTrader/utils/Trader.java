@@ -18,9 +18,6 @@ public class Trader {
 	
 	public Trader() {
 		
-		StratConditions = new String[4][6];
-		StratActions = new String[4][3];
-		
 		trades = new String[10][7];
 		
 	}
