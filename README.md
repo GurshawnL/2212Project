@@ -4,7 +4,7 @@
 Gurshawn Singh Lehal (glehal)\
 Imesh Nimsitha (inimsith)\
 Uzair Muhammed Salim (usalim2)\
-Gunveer Vilkhu (gvilkhu)\
+Gunveer Vilkhu (gvilkhu)
 
 ## Overview
 This project aims to implement a system that performs and manages trading strategies in cryptocurrency, along with the aid of a graphical user interface and other features. The CoinGecko API will be utilized for the retrieval of data from the CoinGecko database.
@@ -27,8 +27,6 @@ The following input is a sample trading client action:
 * **Coin List:** BTC,ADA,ETH
 * **Strategy Name:** Strategy-A
 
-To avoid compilation error, the cryptocurrency coin list must be written using only abbreviated capital letters, separated by commas with no spaces.
-**Good Input**:
-BTC,ADA,ETH
-**Incorrect Input:**
-bTc, Ada, etheruem
+To avoid compilation error, the cryptocurrency coin list must be written using only abbreviated capital letters, separated by commas with no spaces.\
+**Correct Input**: BTC,ADA,ETH\
+**Incorrect Input:** bTc, Ada, etheruem
