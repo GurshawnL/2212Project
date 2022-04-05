@@ -1,5 +1,7 @@
 package cryptoTrader.utils;
 
+import java.util.Arrays;
+
 public class Trader {
 	
 	String[][] StratConditions = 
@@ -83,12 +85,16 @@ public class Trader {
 		
 	}
 	
+	//do trade
 	public void performTrade(String traderName, int strat, String[] coins, Double[] prices, String date) {
 		
 		if (checkStrat(strat, coins, prices)) {
 			String[] NewTrade = StratActions[strat];
-			System.out.print(NewTrade[0] + " " + NewTrade[1] + " " + NewTrade[2]);			
+			System.out.println(NewTrade[0] + " " + NewTrade[1] + " " + NewTrade[2]);			
 			String[] NewTradeLog = {traderName, Integer.toString(strat), NewTrade[0], NewTrade[1], NewTrade[2], Double.toString(prices[0]), date};
+			System.out.println(Arrays.toString(NewTradeLog));
+		} else {
+			System.out.println("Error, the coin does not exist in the list");
 		}
 	}
 
@@ -98,12 +104,7 @@ public class Trader {
 		Double[] prices = {58000.000000, 4000.00000};
 		
 		Trader traderObj = new Trader();
-		boolean val = traderObj.checkStrat(0, coins, prices);
-		if (val) {
-			System.out.println("Success");
-		} else {
-			System.out.println("Fail");
-		}
+		traderObj.performTrade("Trader-1", 0, coins, prices, "04-04-2022");
 
 	}
 
