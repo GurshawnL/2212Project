@@ -26,6 +26,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+import java.util.*;
 
 import cryptoTrader.gui.MainUI;
 
@@ -207,9 +208,11 @@ public class DataVisualizationCreator {
 		// values
 		Object[][] data = traderdbObj.getData();
 		
+		
 		// hashtable to store
 		Hashtable<String, Hashtable<String, String>> allData = new Hashtable<String Hashtable<String, int>>();
 		
+
 		// populating the hashable
 		for (int i = 0; i < data.length; i++) {
 			// grabbing the variables
@@ -246,6 +249,7 @@ public class DataVisualizationCreator {
 			}
 		}
 		
+		
 		// iterating though the dictionary
 		
 		/*
@@ -255,6 +259,7 @@ public class DataVisualizationCreator {
 		dataset.setValue(1, "Trader-4", "Strategy-C");
 		dataset.setValue(10, "Trader-5", "Strategy-D");
 		*/
+		
 
 		
 		// creating the graph
