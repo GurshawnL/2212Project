@@ -6,12 +6,9 @@ import java.util.Arrays;
  * Trader accesses the broker's coin data, determines if the conditions were met
  * If the Conditions were met, trade is performed
  * Else nothing happens
- * @author Gurshawn Singh Lehal (glehal) , Imesh Nimsitha (inimsith) , Uzair Muhammed Salim (usalim2) , Gunveer Vilkhu (gvilkhu) 
- *
+ * @author Gurshawn Singh Lehal (glehal) , Imesh Nimsitha (inimsith) , Uzair Muhammed Salim (usalim2) , Gunveer Vilkhu (gvilkhu)
  */
 public class Trader {
-	
-	
 	/**
 	 * StratConditions are the conditions to be met
 	 * This constant keeps the four stratigies to a 2-d array
@@ -40,80 +37,73 @@ public class Trader {
 	 * @return boolean to determine if strategy was met or not
 	 */
 	public boolean checkStrat(int strat, String[] coins, Double[] prices) {
-		
-		//get strat from conditions (0=A, 3=D)
+		// get strat from conditions (0=A, 3=D)
 		String[] checkStrat = StratConditions[strat];
-		
-		//parse doubles to check prices
+
+		// parse doubles to check prices
 		Double checkPrice1 = Double.parseDouble(checkStrat[2]);
 		Double checkPrice2 = Double.parseDouble(checkStrat[5]);
-		
-		//get specific conditions 
+
+		// get specific conditions
 		String cond1 = checkStrat[1];
 		String cond2 = checkStrat[4];
-		
-		//search the coin array for the wanted coin
-		for(int i=0; i<coins.length; i++) {
-			if (checkStrat[0].equals(coins[i])){ //coin1 is found
-				//check price of coin1
+
+		// search the coin array for the wanted coin
+		for (int i = 0; i < coins.length; i++) {
+			if (checkStrat[0].equals(coins[i])) { // coin1 is found
+				// check price of coin1
 				Double price1 = prices[i];
-				//compare price of coin1 to condition
-				if(cond1.equals(">")) {
-					
-				
-					if(price1 > checkPrice1) { //if condition 1 is met, check price 2
-						for(int j=0; j<coins.length; j++) {
-							if (checkStrat[0].equals(coins[j])){ //coin2 is found
-								//check price of coin2
+
+				// compare price of coin1 to condition
+				if (cond1.equals(">")) {
+					if (price1 > checkPrice1) { // if condition 1 is met, check price 2
+						for (int j = 0; j < coins.length; j++) {
+							if (checkStrat[0].equals(coins[j])) { // coin2 is found
+								// check price of coin2
 								Double price2 = prices[j];
-								
-								if(cond2.equals("<")) { //if both conditions are true, return true
-									if(price2<checkPrice2) {
+
+								if (cond2.equals("<")) { // if both conditions are true, return true
+									if (price2 < checkPrice2) {
 										return true;
 									}
-								} else if(cond2.equals(">")) { //if both conditions are true, return true
-									if(price2>checkPrice2) {
+								} else if (cond2.equals(">")) { // if both conditions are true, return true
+									if (price2 > checkPrice2) {
 										return true;
 									}
-								}	
+								}
+							}
+						}
 					}
 				}
-				
-			}
-		}		
-				//case two if the condition is met
+				// case two if the condition is met
 				else if (cond1.equals("<")) {
-					if(price1 < checkPrice1) { //if condition 1 is met, check price 2
-						for(int j=0; j<coins.length; j++) {
-							if (checkStrat[0].equals(coins[j])){ //coin2 is found
-								//check price of coin2
+					if (price1 < checkPrice1) { // if condition 1 is met, check price 2
+						for (int j = 0; j < coins.length; j++) {
+							if (checkStrat[0].equals(coins[j])) { // coin2 is found
+								// check price of coin2
 								Double price2 = prices[j];
-								
-								if(cond2.equals(">")){ //if both conditions are true, return true
-									if(price2>checkPrice2) {
+
+								if (cond2.equals(">")) { // if both conditions are true, return true
+									if (price2 > checkPrice2) {
 										return true;
 									}
-								} else if(cond2.equals("<")){ //if both conditions are true, return true
-									if(price2<checkPrice2) {
+								} else if (cond2.equals("<")) { // if both conditions are true, return true
+									if (price2 < checkPrice2) {
 										return true;
 									}
-								}	
+								}
+							}
+						}
 					}
 				}
-				
 			}
-				}
-		
-			}
-		
 		}
-		return false; // if no condiiton is met, return false
+		return false; // if no condition is met, return false
 		
 	}
 	
-	//perform trade is coins exist
 	/**
-	 * PerformTrade creates a trade if the conditions are met
+	 * performTrade creates a trade if the conditions are met
 	 * @param traderName - name of the trader 
 	 * @param strat - strategy used by the trader
 	 * @param coins - list of coins used by trader
@@ -121,17 +111,15 @@ public class Trader {
 	 * @param date - the date of the trade 
 	 */
 	public void performTrade(String traderName, int strat, String[] coins, Double[] prices, String date) {
-		
 		//check if conditions were met
 		if (checkStrat(strat, coins, prices)) { //if met
 			String[] NewTrade = StratActions[strat]; //take the trade actions
 			
 			int index = indexOfCoin(NewTrade[2], coins); //find the index of the coin to be traded
-			String StrStrat = changeNumbertoStrat(strat); //convert a number to a strat ltieral
+			String StrStrat = changeNumbertoStrat(strat); //convert a number to a strat literal
 			
 			//create a log of the trade information
 			String[] NewTradeLog = {traderName, StrStrat, NewTrade[2], NewTrade[0].toUpperCase(), NewTrade[1], Double.toString(prices[index]), date};
-			//System.out.println(Arrays.toString(NewTradeLog));
 			
 			//call traderdb object to write data
 			TradeDB tradedbObj = new TradeDB();
@@ -154,7 +142,7 @@ public class Trader {
 				return i; //found
 			}
 		}
-		return -1;		//not found
+		return -1; //not found
 	}
 	
 	/** changeNumbertoStrat Changing Number to String for Strategy Literal
@@ -185,7 +173,6 @@ public class Trader {
 	 * @param date - todays date
 	 */
 	public void performTradesGroup (String[] brokers, String[][] brokerCoins, String[] strategies, int numBrokers, String[] allCoins, Double[] allPrices, String date) {		
-		
 		for (int i = 0; i < numBrokers; i++) { //for each broker
 			
 			//make own list of coins
@@ -221,22 +208,9 @@ public class Trader {
 			newCoinArr = Arrays.copyOfRange(newCoinArr, 0, newArrLen);
 			newCoinPriceArr = Arrays.copyOfRange(newCoinPriceArr, 0, newArrLen);
 			
-			//System.out.println(Arrays.toString(newCoinArr));
-			//System.out.println(Arrays.toString(newCoinPriceArr));
-			
 			//perform trade with given information
 			performTrade(brokers[i], strategy, newCoinArr, newCoinPriceArr, date);
 		}
-	}
-	
-	public static void main(String[] args) {
-		
-		String[] coins = {"BTC", "ETH"};
-		Double[] prices = {58000.000000, 4000.00000};
-		
-		Trader traderObj = new Trader();
-		traderObj.performTrade("Trader-1", 0, coins, prices, "04-04-2022");
-
 	}
 
 }

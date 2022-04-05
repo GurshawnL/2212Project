@@ -20,7 +20,6 @@ import cryptoTrader.utils.Login;
 public class LoginUI extends JFrame implements ActionListener {
 	
 	private static final long serialVersionUID = 1L; // JFrame serial version long
-	
 	private static LoginUI instance; // Private instance variable
 	
 	// Private instance variables for UI components
@@ -38,7 +37,6 @@ public class LoginUI extends JFrame implements ActionListener {
 		if (instance == null) instance = new LoginUI();
 		return instance;
 	}
-	
 	
 	/**
 	 * Constructor

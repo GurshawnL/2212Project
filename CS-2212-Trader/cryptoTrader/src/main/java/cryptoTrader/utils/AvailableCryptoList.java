@@ -14,13 +14,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/**
+ * Provided class for available crypto list
+ */
 public class AvailableCryptoList {
 	private static AvailableCryptoList instance = null;
 	
 	private Map<String, String> availableCryptosMap = new HashMap<>();
 	private List<String> availableCryptosList = new ArrayList<>();
 	
-	//abbrevations
+	// Abbreviations
 	private Map<String, String> AbbrevMap = new HashMap<>();
 	private String[][] COINSABBREV = {{"BTC", "Bitcoin"}, {"ETH", "Ethereum"}, {"ADA", "Cardano"}, {"USDC", "USD Coin"}, {"USDT", "Tether"},
 			{"SOL", "Solana"}, {"XRP", "XRP"}, {"DOGE", "Dogecoin"}, {"LTC", "Litecoin"}};
@@ -52,18 +55,6 @@ public class AvailableCryptoList {
 				}
 				sc.close();
 				System.out.println(inline);
-//				JsonArray jsonArray = new JsonParser().parse(inline).getAsJsonArray();
-//				int size = jsonArray.size();
-//				
-//				String name, id;
-//				for (int i = 0; i < size; i++) {
-//					JsonObject object = jsonArray.get(i).getAsJsonObject();
-//					name = object.get("name").getAsString();
-//					id = object.get("id").getAsString();
-//					
-//					availableCryptosMap.put(name, id);
-//					availableCryptosList.add(name);
-//				}
 			}
 
 		} catch (IOException e) {
@@ -72,11 +63,8 @@ public class AvailableCryptoList {
 	}
 	
 	private void findAvailableCryptos() {
-
-		String urlString = 
-				"https://api.coingecko.com/api/v3/coins/markets" + 
-						"?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false";
-//		ALPHAVANTAGE API KEY = VNEY4VV2AWF1EB51
+		String urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false";
+		// ALPHAVANTAGE API KEY = VNEY4VV2AWF1EB51
 		try {
 			URL url = new URL(urlString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -122,9 +110,8 @@ public class AvailableCryptoList {
 		return availableCryptosMap.get(cryptoName);
 	}
 	
-	//get full name based on abbrevation 
 	/**
-	 * getFullName abrrev name to full string 
+	 * getFullName Abbreviation name to full string 
 	 * @param AbbrevName name in coin format (BTC)
 	 * @return string of full name (Bitcoin)
 	 */

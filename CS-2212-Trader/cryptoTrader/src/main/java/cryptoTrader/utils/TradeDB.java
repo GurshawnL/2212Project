@@ -38,7 +38,6 @@ public class TradeDB {
 		}
 	}
 	
-	//write data to the txt file
 	/**
 	 * writeData takes data and inputs it to the txt file
 	 * @param trade String[] that contains trade details
@@ -46,9 +45,8 @@ public class TradeDB {
 	public void writeData (String[] trade) {
 		try {
 			//open writers
-			FileWriter fileWriter = new FileWriter(DB_FILENAME, true); //append mode on
-			PrintWriter writerObj = new PrintWriter(fileWriter);
-			//System.out.println(Arrays.toString(trade));
+			FileWriter tradeFileWriter = new FileWriter(DB_FILENAME, true); //append mode on
+			PrintWriter writerObj = new PrintWriter(tradeFileWriter);
 			
 			if (!firstWrite) { //if not first write skip line
 				writerObj.print("\n"+Arrays.toString(trade));				
@@ -57,7 +55,7 @@ public class TradeDB {
 			}
 			
 			writerObj.close(); //close file
-		} catch (IOException e) { //io error
+		} catch (IOException e) { // I/O error
 			System.out.println("There was an Error while reading the file");		
 		}
 	}
@@ -69,13 +67,11 @@ public class TradeDB {
 	public Object[][] getData() {
 		
 		Object[][] data = new Object[1000][7]; //data store object
-		int objLen = 0; //size of arr
+		int objLen = 0; // size of array
 		try {
 			//try opening file and scanning
 			File dbFile = new File(DB_FILENAME);
 			Scanner sc = new Scanner(dbFile);
-			
-			
 			
 			while (sc.hasNextLine()) { //while there is still lines to be scanned
 				String dataLine = sc.nextLine();
@@ -85,25 +81,15 @@ public class TradeDB {
 				for (int j = 0; j < dataLineArr.length; j++) { //store into data object
 					data[objLen][j] = dataLineArr[j];					
 				}
-				objLen++; //increase size of length
-												
+				objLen++; //increase size of length							
 			}
 			
-			data = Arrays.copyOfRange(data, 0, objLen); //cut null
-						
+			data = Arrays.copyOfRange(data, 0, objLen); //cut null		
 		} catch (FileNotFoundException e) { //error IO
 			System.out.println("There was an Error reading making the file");	
 		}	
 		
 		return data; //return data
-	}
-	
-
-	public static void main(String[] args) {
-		
-		TradeDB traderDB = new TradeDB();
-		traderDB.getData();
-
 	}
 
 }

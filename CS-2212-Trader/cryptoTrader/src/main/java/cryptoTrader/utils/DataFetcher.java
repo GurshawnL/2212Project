@@ -11,10 +11,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/**
+ * Provided class for data fetching
+ */
 public class DataFetcher {
 
 	private JsonObject getDataForCrypto(String id, String date) {
-
 		String urlString = String.format(
 				"https://api.coingecko.com/api/v3/coins/%s/history?date=%s", id, date);
 		
@@ -90,6 +92,6 @@ public class DataFetcher {
 		System.out.println("Bitcoin=>\tPrice: " + price + 
 								"\n\t\tMarket Cap: " + marketCap + 
 								"\n\t\tVolume: "+volume);
-		
 	}
+	
 }

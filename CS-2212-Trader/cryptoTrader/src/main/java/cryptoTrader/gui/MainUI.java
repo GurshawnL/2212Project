@@ -32,16 +32,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 /**
- * MainUI usese the prebuilt ui class and adds connection to the backend
- * @author Gurshawn Singh Lehal (glehal) , Imesh Nimsitha (inimsith) , Uzair Muhammed Salim (usalim2) , Gunveer Vilkhu (gvilkhu) 
+ * MainUI uses the pre-built UI class and adds connection to the backend
+ * @author Gurshawn Singh Lehal (glehal) , Imesh Nimsitha (inimsith) , Uzair Muhammed Salim (usalim2) , Gunveer Vilkhu (gvilkhu)
  * @group 46
- *
  */
 public class MainUI extends JFrame implements ActionListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = 1L; // JFrame serial version long
 
 	private static MainUI instance;
 	private JPanel stats, chartPanel, tablePanel;
@@ -62,13 +59,17 @@ public class MainUI extends JFrame implements ActionListener {
 	private JTable table;
 	
 	
-	//****************************************added variables 
-	private broker BrokerObj;
+	// added variables 
+	private Broker BrokerObj;
 	private DataFetcher fetcher;
 	private AvailableCryptoList AvailCryptoList;
 	private Trader traderObj;
 	
 
+	/**
+	 * Access instance of main UI
+	 * @return MainUI Instance of main UI
+	 */
 	public static MainUI getInstance() {
 		if (instance == null)
 			instance = new MainUI();
@@ -76,59 +77,26 @@ public class MainUI extends JFrame implements ActionListener {
 		return instance;
 	}
 
+	/**
+	 * Constructor
+	 * Creates main UI for accessing system
+	 */
 	private MainUI() {
-
-		// Set window title
-		super("Crypto Trading Tool");
+		super("Crypto Trading Tool"); // Set window title
 		
 		//Construct Objects from other classes
-		BrokerObj = new broker();
+		BrokerObj = new Broker();
 		fetcher = new DataFetcher();
 		AvailCryptoList = new AvailableCryptoList();
 		traderObj = new Trader();
 
 		JPanel north = new JPanel();
 
-//		north.add(strategyList);
-
-		// Set bottom bar
-//		JLabel from = new JLabel("From");
-//		UtilDateModel dateModel = new UtilDateModel();
-//		Properties p = new Properties();
-//		p.put("text.today", "Today");
-//		p.put("text.month", "Month");
-//		p.put("text.year", "Year");
-//		JDatePanelImpl datePanel = new JDatePanelImpl(dateModel, p);
-//		@SuppressWarnings("serial")
-//		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new AbstractFormatter() {
-//			private String datePatern = "dd/MM/yyyy";
-//
-//			private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePatern);
-//
-//			@Override
-//			public Object stringToValue(String text) throws ParseException {
-//				return dateFormatter.parseObject(text);
-//			}
-//
-//			@Override
-//			public String valueToString(Object value) throws ParseException {
-//				if (value != null) {
-//					Calendar cal = (Calendar) value;
-//					return dateFormatter.format(cal.getTime());
-//				}
-//
-//				return "";
-//			}
-//		});
-
 		JButton trade = new JButton("Perform Trade");
 		trade.setActionCommand("refresh");
 		trade.addActionListener(this);
 
-
-
 		JPanel south = new JPanel();
-		
 		south.add(trade);
 
 		dtm = new DefaultTableModel(new Object[] { "Trading Client", "Coin List", "Strategy Name" }, 1);
@@ -156,47 +124,52 @@ public class MainUI extends JFrame implements ActionListener {
 		scrollPane.setPreferredSize(new Dimension(800, 300));
 		table.setFillsViewportHeight(true);
 		
-
 		JPanel east = new JPanel();
-//		east.setLayout();
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
-//		east.add(table);
 		east.add(scrollPane);
 		JPanel buttons = new JPanel();
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		buttons.add(addRow);
 		buttons.add(remRow);
 		east.add(buttons);
-//		east.add(selectedTickerListLabel);
-//		east.add(selectedTickersScrollPane);
 
 		// Set charts region
 		JPanel west = new JPanel();
 		west.setPreferredSize(new Dimension(1250, 650));
+		
 		stats = new JPanel();
 		stats.setLayout(new GridLayout(2, 2));
-
 		west.add(stats);
 
 		getContentPane().add(north, BorderLayout.NORTH);
 		getContentPane().add(east, BorderLayout.EAST);
 		getContentPane().add(west, BorderLayout.CENTER);
 		getContentPane().add(south, BorderLayout.SOUTH);
-//		getContentPane().add(west, BorderLayout.WEST);
 	}
 
+	/**
+	 * Updates stats component
+	 * @param component JComponent Stats component
+	 */
 	public void updateStats(JComponent component) {
 		stats.add(component);
 		stats.revalidate();
 	}
 
+	/**
+	 * Main method for initializing and showing main UI instance
+	 * @param args String[] Optional arguments
+	 */
 	public static void main(String[] args) {
-		JFrame frame = MainUI.getInstance();
+		JFrame frame = MainUI.getInstance(); // Initialize main UI
 		frame.setSize(900, 600);
 		frame.pack();
-		frame.setVisible(true);
+		frame.setVisible(true); // Show UI
 	}
 
+	/**
+	 * Event listener for button clicks
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
@@ -236,7 +209,6 @@ public class MainUI extends JFrame implements ActionListener {
 			
 			//only access if array is no null
 			if (indexNull != -1) {
-				
 				priceOfCoins = new Double[indexNull]; //price of coins
 				listOfCoins = BrokerObj.getSubArray(listOfCoins, indexNull);
 				System.out.println(Arrays.toString(listOfCoins)); //without nulls
@@ -263,12 +235,8 @@ public class MainUI extends JFrame implements ActionListener {
 				
 				//send information to trade
 				traderObj.performTradesGroup(brokers, brokerCoins, brokerStrats, numBrokers, listOfCoins, priceOfCoins, dateToday);
-				
-			} else {
-				System.out.println("Erorr, IndexNull was -1"); //if the array was filled
-				}
-			
-			
+			} 
+			else System.out.println("Erorr, IndexNull was -1"); //if the array was filled
 			
 			stats.removeAll();
 			DataVisualizationCreator creator = new DataVisualizationCreator();

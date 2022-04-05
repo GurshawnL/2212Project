@@ -30,15 +30,15 @@ import java.util.*;
 
 import cryptoTrader.gui.MainUI;
 
+/**
+ * Provided class for creating data visualizations
+ */
 public class DataVisualizationCreator {
 	
 	TradeDB traderdbObj; 
 	
 	public void createCharts() {
-//		createTextualOutput();
 		createTableOutput();
-//		createTimeSeries();
-//		createScatter();
 		createBar();
 	}
 

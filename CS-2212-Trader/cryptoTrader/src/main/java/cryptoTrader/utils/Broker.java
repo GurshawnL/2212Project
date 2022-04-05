@@ -4,13 +4,11 @@ import java.util.Arrays;
 import java.text.SimpleDateFormat;  
 import java.util.Date;  
 
-
 /**
  * Broker stores the names, coins, strategies, and number of brokers 
- * @author Gurshawn Singh Lehal (glehal) , Imesh Nimsitha (inimsith) , Uzair Muhammed Salim (usalim2) , Gunveer Vilkhu (gvilkhu) 
- *
+ * @author Gurshawn Singh Lehal (glehal) , Imesh Nimsitha (inimsith) , Uzair Muhammed Salim (usalim2) , Gunveer Vilkhu (gvilkhu)
  */
-public class broker { //create a broker object to deal with brokers
+public class Broker { //create a broker object to deal with brokers
 	
 	//list of brokers
 	private String [] names;
@@ -23,9 +21,10 @@ public class broker { //create a broker object to deal with brokers
 	private int coinMAX = 10;
 	
 	/**
-	 * Constructors
+	 * Constructor
+	 * Create new broker object with properties
 	 */
-	public broker () { 
+	public Broker () { 
 		names = new String[MAX];
 		coins = new String[MAX][coinMAX];
 		strategies = new String[MAX];
@@ -98,7 +97,6 @@ public class broker { //create a broker object to deal with brokers
 		for (String[] list : coins) {
 			for (String item : list) {
 				if (item != null) {
-					
 					boolean itemExists = false;
 					
 					for (String coins: allCoins) {
@@ -133,7 +131,6 @@ public class broker { //create a broker object to deal with brokers
 	 * @return int of index for first null
 	 */
 	public int getFirstNull(String[] coinList) {
-		int index = 0;
 		for (int i = 0; i < getCoinMax(); i++) { //search entire array
 			if (coinList[i] == null) {
 				return i; //first null found
@@ -169,21 +166,6 @@ public class broker { //create a broker object to deal with brokers
 		String DateToday = simpleDate.format(date);
 		DateToday = DateToday.replace('/', '-'); //switch slash to dash
 		return DateToday;
-	}
-
-	public static void main(String[] args) {
-		String[] newNames = {"Hello", "ETC", "ADA"};
-		String[] newNames2 = {"BTC", "ETC", "LTC", "ADA"};
-		broker brokerObj = new broker();
-		/*
-		brokerObj.addBroker("trader-1", newNames, "Strat-1");
-		brokerObj.addBroker("trader-1", newNames2, "Strat-1");
-		String [] list = brokerObj.getListOfCoins();
-		System.out.println(Arrays.toString(list));
-		
-		System.out.println(brokerObj.getDateToday());
-		
-		*/		
 	}
 
 }
