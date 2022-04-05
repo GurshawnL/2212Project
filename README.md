@@ -7,6 +7,7 @@ To run this project, go to **LoginUI.java** located at C:\Gunveer Data\Universit
 
 * To build, use `javac LoginUI.java`
 * To run, use `java LoginUI.java`
+* The login is "admin" and password is "pass"
 
 Sample input could be: *trader-1*, *BTC,ADA,ETH*, *Strategy-A*
 
