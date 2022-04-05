@@ -97,7 +97,7 @@ public class Trader {
 			String StrStrat = changeNumbertoStrat(strat);
 			
 			String[] NewTradeLog = {traderName, StrStrat, NewTrade[2], NewTrade[0].toUpperCase(), NewTrade[1], Double.toString(prices[index]), date};
-			System.out.println(Arrays.toString(NewTradeLog));
+			//System.out.println(Arrays.toString(NewTradeLog));
 			
 			TradeDB tradedbObj = new TradeDB();
 			tradedbObj.writeData(NewTradeLog);

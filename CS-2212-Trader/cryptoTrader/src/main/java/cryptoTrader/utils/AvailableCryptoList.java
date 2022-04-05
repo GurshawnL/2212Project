@@ -128,7 +128,7 @@ public class AvailableCryptoList {
 	
 	public static void main (String[] args) {
 		AvailableCryptoList list = new AvailableCryptoList();
-		System.out.println(list.getFullName("ADA"));
+		System.out.println(list.getFullName("ETH"));
 	}
 
 }
