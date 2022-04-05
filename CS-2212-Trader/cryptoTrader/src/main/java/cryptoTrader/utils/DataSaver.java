@@ -23,15 +23,16 @@ public class DataSaver {
         }
 	}
 	
-	public static JSONObject getData(String fileName, String key) {
+	public static JSONObject getData(String fileName) {
 		// creating the JSON parser object
 		JSONParser parser = new JSONParser();
 		
 		// attempting to read the file
 		try (FileReader storedFile = new FileReader(fileName)) {
 			// reading the file
-			Object fileObj = parser.parse(storedFile);
-			return (JSONObject) fileObj;
+			JSONObject fileObj = (JSONObject) parser.parse(storedFile);
+			// System.out.println(fileObj);
+			return fileObj;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -44,10 +45,30 @@ public class DataSaver {
 		
 		return new JSONObject();
 	}
+	
+	public static String getDataKey(String fileName, String key) {
+		JSONObject dataObj = DataSaver.getData(fileName);
+		return (String) dataObj.get(key);
+		
+	}
+	
+	public static void addData(String fileName, String key, String value) {
+		JSONObject dataObj = DataSaver.getData(fileName);
+		dataObj.put(key, value);
+        try (FileWriter newFile = new FileWriter(fileName)) {
+        	// writing to the newly made file
+            newFile.write(dataObj.toJSONString()); 
+            newFile.flush();
+ 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 
 	public static void main(String[] args) {
 		DataSaver.putData("yur", "hello", "its ross");
-		JSONObject storedObj = DataSaver.getData("yur", "hello");
-		System.out.println();
+		DataSaver.addData("yur", "papi", "chulo");
+		String inputString = DataSaver.getDataKey("yur", "papi");
+		System.out.println(inputString);
 	}
 }
