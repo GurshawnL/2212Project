@@ -14,3 +14,4 @@
 [trader-3, Strategy-C, SOL, SELL, 5, 171.2183476609558, 04-04-2022]
 [trader-4, Strategy-B, DOGE, BUY, 10, 0.1968745618, 04-04-2022]
 [Example, Strategy-A, ETH, BUY, 2, 4397.635115256181, 05-04-2022]
+[trader-1, Strategy-A, ETH, BUY, 2, 4397.635115256181, 05-04-2022]

@@ -31,6 +31,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+/**
+ * MainUI usese the prebuilt ui class and adds connection to the backend
+ * @author Gurshawn Singh Lehal (glehal) , Imesh Nimsitha (inimsith) , Uzair Muhammed Salim (usalim2) , Gunveer Vilkhu (gvilkhu) 
+ * @group 46
+ *
+ */
 public class MainUI extends JFrame implements ActionListener {
 	/**
 	 * 
@@ -228,7 +234,8 @@ public class MainUI extends JFrame implements ActionListener {
 			//Grab index of first null
 			int indexNull = BrokerObj.getFirstNull(listOfCoins);
 			
-			if (indexNull != -1) { //if index null was a real value
+			//only access if array is no null
+			if (indexNull != -1) {
 				
 				priceOfCoins = new Double[indexNull]; //price of coins
 				listOfCoins = BrokerObj.getSubArray(listOfCoins, indexNull);
@@ -237,7 +244,7 @@ public class MainUI extends JFrame implements ActionListener {
 				//fetch prices of coins
 				String dateToday = BrokerObj.getDateToday();//today's date
 				
-				//grab prices
+				//grab prices for each coin
 				for (int i = 0; i < indexNull; i++) {
 					String coin = listOfCoins[i];
 					coin = AvailCryptoList.getFullName(coin);
@@ -246,17 +253,19 @@ public class MainUI extends JFrame implements ActionListener {
 					priceOfCoins[i] = price;
 				}
 				
-				//System.out.println(Arrays.toString(priceOfCoins));
+				System.out.println(Arrays.toString(priceOfCoins));
 				
+				//get broker data to send to trade
 				String[] brokers = BrokerObj.getBrokers();
 				String[][] brokerCoins = BrokerObj.getCoins();
 				String[] brokerStrats = BrokerObj.getStrats();
 				int numBrokers = BrokerObj.getLength();
 				
+				//send information to trade
 				traderObj.performTradesGroup(brokers, brokerCoins, brokerStrats, numBrokers, listOfCoins, priceOfCoins, dateToday);
 				
 			} else {
-				System.out.println("Erorr, IndexNull was -1");
+				System.out.println("Erorr, IndexNull was -1"); //if the array was filled
 				}
 			
 			

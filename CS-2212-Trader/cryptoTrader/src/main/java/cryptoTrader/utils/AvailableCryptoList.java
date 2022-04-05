@@ -122,6 +122,12 @@ public class AvailableCryptoList {
 		return availableCryptosMap.get(cryptoName);
 	}
 	
+	//get full name based on abbrevation 
+	/**
+	 * getFullName abrrev name to full string 
+	 * @param AbbrevName name in coin format (BTC)
+	 * @return string of full name (Bitcoin)
+	 */
 	public String getFullName(String AbbrevName) {
 		return AbbrevMap.get(AbbrevName);
 	}

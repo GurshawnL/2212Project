@@ -8,13 +8,21 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * TradeDB stores the trades in txt and can access all data 
+ * @author Gurshawn Singh Lehal (glehal) , Imesh Nimsitha (inimsith) , Uzair Muhammed Salim (usalim2) , Gunveer Vilkhu (gvilkhu) 
+ *
+ */
 public class TradeDB {
 	//file name
 	private String DB_FILENAME = "trades_db.txt";
 	private File myObj;
 	private boolean firstWrite;
 	
-	//constructor
+	/**
+	 * Constructor
+	 * Opens file and creates one if it does not exist
+	 */
 	public TradeDB() {
 		firstWrite = false;
 		try { //try making new file
@@ -31,52 +39,63 @@ public class TradeDB {
 	}
 	
 	//write data to the txt file
+	/**
+	 * writeData takes data and inputs it to the txt file
+	 * @param trade String[] that contains trade details
+	 */
 	public void writeData (String[] trade) {
 		try {
-			FileWriter fileWriter = new FileWriter(DB_FILENAME, true);
+			//open writers
+			FileWriter fileWriter = new FileWriter(DB_FILENAME, true); //append mode on
 			PrintWriter writerObj = new PrintWriter(fileWriter);
 			//System.out.println(Arrays.toString(trade));
 			
-			if (!firstWrite) {
+			if (!firstWrite) { //if not first write skip line
 				writerObj.print("\n"+Arrays.toString(trade));				
-			} else {
+			} else { //else skip line 
 				writerObj.print(Arrays.toString(trade));
 			}
 			
-			writerObj.close();
-		} catch (IOException e) {
+			writerObj.close(); //close file
+		} catch (IOException e) { //io error
 			System.out.println("There was an Error while reading the file");		
 		}
 	}
 	
+	/**
+	 * getData reads all data and returns as a Object[][]
+	 * @return Object[][] 2-d array that returns all trades 
+	 */
 	public Object[][] getData() {
-		Object[][] data = new Object[1000][7];
-		int objLen = 0;
+		
+		Object[][] data = new Object[1000][7]; //data store object
+		int objLen = 0; //size of arr
 		try {
+			//try opening file and scanning
 			File dbFile = new File(DB_FILENAME);
 			Scanner sc = new Scanner(dbFile);
 			
 			
 			
-			while (sc.hasNextLine()) {
+			while (sc.hasNextLine()) { //while there is still lines to be scanned
 				String dataLine = sc.nextLine();
-				dataLine = dataLine.substring(1, dataLine.length()-1);
-				dataLine = dataLine.replaceAll("\\s","");
-				String[] dataLineArr = dataLine.split(",");
-				for (int j = 0; j < dataLineArr.length; j++) {
+				dataLine = dataLine.substring(1, dataLine.length()-1); //cut []
+				dataLine = dataLine.replaceAll("\\s",""); //take out whitespace
+				String[] dataLineArr = dataLine.split(","); //put into array
+				for (int j = 0; j < dataLineArr.length; j++) { //store into data object
 					data[objLen][j] = dataLineArr[j];					
 				}
-				objLen++;
+				objLen++; //increase size of length
 												
 			}
 			
-			data = Arrays.copyOfRange(data, 0, objLen);
+			data = Arrays.copyOfRange(data, 0, objLen); //cut null
 						
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) { //error IO
 			System.out.println("There was an Error reading making the file");	
 		}	
 		
-		return data;
+		return data; //return data
 	}
 	
 
