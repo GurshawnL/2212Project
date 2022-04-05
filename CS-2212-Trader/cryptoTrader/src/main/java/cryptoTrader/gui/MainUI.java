@@ -232,7 +232,7 @@ public class MainUI extends JFrame implements ActionListener {
 				
 				priceOfCoins = new Double[indexNull]; //price of coins
 				listOfCoins = BrokerObj.getSubArray(listOfCoins, indexNull);
-				//System.out.println(Arrays.toString(listOfCoins)); //without nulls
+				System.out.println(Arrays.toString(listOfCoins)); //without nulls
 				
 				//fetch prices of coins
 				String dateToday = BrokerObj.getDateToday();//today's date

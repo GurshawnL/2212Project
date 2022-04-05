@@ -210,14 +210,15 @@ public class DataVisualizationCreator {
 		
 		
 		// hashtable to store
-		Hashtable<String, Hashtable<String, String>> allData = new Hashtable<String Hashtable<String, int>>();
+		HashMap<String, HashMap<String, Integer>> allData = new HashMap<>();
 		
 
 		// populating the hashable
 		for (int i = 0; i < data.length; i++) {
 			// grabbing the variables
-				String trader = data[i, 0];
-				String strategy = data[i, 1];
+			System.out.println(data[i][0]);
+				String trader = data[i][0];
+				String strategy = data[i][1];
 
 				if (allData.get(trader) != null) {
 					if (allData.get(trader).get(strategy) != null) {
