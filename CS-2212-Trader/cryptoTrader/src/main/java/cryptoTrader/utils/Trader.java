@@ -54,8 +54,7 @@ public class Trader {
 									if(price2>checkPrice2) {
 										return true;
 									}
-								}
-								
+								}	
 					}
 				}
 				
@@ -73,8 +72,7 @@ public class Trader {
 									if(price2<checkPrice2) {
 										return true;
 									}
-								}
-								
+								}	
 					}
 				}
 				
@@ -98,6 +96,17 @@ public class Trader {
 	}
 
 	public static void main(String[] args) {
+		
+		String[] coins = {"BTC", "ETH"};
+		Double[] prices = {58000.000000, 4000.00000};
+		
+		Trader traderObj = new Trader();
+		boolean val = traderObj.checkStrat(0, coins, prices);
+		if (val) {
+			System.out.println("Success");
+		} else {
+			System.out.println("Fail");
+		}
 
 	}
 
