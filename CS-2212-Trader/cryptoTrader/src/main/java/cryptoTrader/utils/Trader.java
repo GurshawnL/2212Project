@@ -19,8 +19,8 @@ public class Trader {
 	private String[][] StratConditions = 
 			{{"BTC", ">", "57000", "ETH", "<", "4350"},
 			{"LTC", ">", "158", "DOGE", "<", "0.185"},
-			{"SOL","<","125","ETH",">","160"},
-			{"ADA","<","1.48","DOGE",">","0.19"}};
+			{"SOL","<","125","ETH",">","4500"},
+			{"ADA","<","1.58","DOGE",">","0.18"}};
 	
 	/**
 	 * StratActions occurs if StratConditions are met
@@ -68,11 +68,11 @@ public class Trader {
 								Double price2 = prices[j];
 								
 								if(cond2.equals("<")) { //if both conditions are true, return true
-									if(price2>checkPrice2) {
+									if(price2<checkPrice2) {
 										return true;
 									}
 								} else if(cond2.equals(">")) { //if both conditions are true, return true
-									if(price2<checkPrice2) {
+									if(price2>checkPrice2) {
 										return true;
 									}
 								}	
@@ -90,11 +90,11 @@ public class Trader {
 								Double price2 = prices[j];
 								
 								if(cond2.equals(">")){ //if both conditions are true, return true
-									if(price2<checkPrice2) {
+									if(price2>checkPrice2) {
 										return true;
 									}
 								} else if(cond2.equals("<")){ //if both conditions are true, return true
-									if(price2>checkPrice2) {
+									if(price2<checkPrice2) {
 										return true;
 									}
 								}	
