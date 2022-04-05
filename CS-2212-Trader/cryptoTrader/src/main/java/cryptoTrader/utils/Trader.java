@@ -25,7 +25,7 @@ public class Trader {
 		
 	}
 	
-	public boolean checKStrat(int strat, String[] coins, Double[] prices) {
+	public boolean checkStrat(int strat, String[] coins, Double[] prices) {
 		
 		String[] checkStrat = StratConditions[strat];
 		
@@ -88,8 +88,13 @@ public class Trader {
 		
 	}
 	
-	public void performTrade() {
+	public void performTrade(String traderName, int strat, String[] coins, Double[] prices, String date) {
 		
+		if (checkStrat(strat, coins, prices)) {
+			String[] NewTrade = StratActions[strat];
+			System.out.print(NewTrade[0] + " " + NewTrade[1] + " " + NewTrade[2]);			
+			String[] NewTradeLog = {traderName, Integer.toString(strat), NewTrade[0], NewTrade[1], NewTrade[2], Double.toString(prices[0]), date};
+		}
 	}
 
 	public static void main(String[] args) {
