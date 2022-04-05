@@ -204,39 +204,44 @@ public class DataVisualizationCreator {
 	
 	private void createBar() {
 		
+		// data set for graph
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		// values
+		
+		// getting data about the trader objects
 		Object[][] data = traderdbObj.getData();
 		
-		
-		// hashtable to store
-		HashMap<String, HashMap<String, Integer>> allData = new HashMap<>();
+		// hash table to store trader data
+		Hashtable<String, Hashtable<String, Integer>> allData = new Hashtable<>();
 		
 
-		// populating the hashable
+		// populating the hash table 
 		for (int i = 0; i < data.length; i++) {
-			// grabbing the variables
-			System.out.println(data[i][0]);
-				String trader = data[i][0];
-				String strategy = data[i][1];
+			// grabbing the trader and strategy variables
+			String trader = (String) data[i][0];
+			String strategy = (String) data[i][1];
 
-				if (allData.get(trader) != null) {
-					if (allData.get(trader).get(strategy) != null) {
-						allData.get(trader).put(strategy, allData.get(trader).get(strategy) + 1);
-					} else {
-						allData.get(trader).put(strategy, 0);
-					}
+			// if we don't have a hash table for the trader, we make one
+			if (allData.get(trader) != null) {
+				// if we don't have a key for the strategy, we make one
+				if (allData.get(trader).get(strategy) != null) {
+					// updating the variable
+					Integer newInt = allData.get(trader).get(strategy) + 1;
+					allData.get(trader).put(strategy, newInt);
 				} else {
-					allData.put(trader, new Hashtable<String, int>());
+					// putting in the key
+					Integer one = 1;
+					allData.get(trader).put(strategy, one);
 				}
+			} else {
+				// making new hash table
+				allData.put(trader, new Hashtable<String, Integer>());
+			}
 		}
-		
-		System.out.println(allData);
-		
-		// putting data in
+
+		// iterating though the dictionary
 		Enumeration<String> allTraders = allData.keys();
 		while (allTraders.hasMoreElements()) {
-			// trader element
+			// obtaining the trader element
 			String trader = allTraders.nextElement();
 			
 			// getting the other keys
@@ -244,24 +249,15 @@ public class DataVisualizationCreator {
 			
 			// inserting each strategy and their respective numbers
 			while (allStrategies.hasMoreElements()) {
+				// getting the strategies of each trader and updating variables accordingly
 				String strat = allStrategies.nextElement();
+				Integer num = allData.get(trader).get(strat);
 				
-				dataset.setValue(allData.get(trader).get(strat), trader, strat);
+				// adding to dataset
+				dataset.setValue(num.intValue(), trader, strat);
 			}
 		}
 		
-		
-		// iterating though the dictionary
-		
-		/*
-		dataset.setValue(6, "Trader-1", "Strategy-A");
-		dataset.setValue(5, "Trader-2", "Strategy-B");
-		dataset.setValue(0, "Trader-3", "Strategy-E");
-		dataset.setValue(1, "Trader-4", "Strategy-C");
-		dataset.setValue(10, "Trader-5", "Strategy-D");
-		*/
-		
-
 		
 		// creating the graph
 		CategoryPlot plot = new CategoryPlot();
@@ -272,7 +268,7 @@ public class DataVisualizationCreator {
 		CategoryAxis domainAxis = new CategoryAxis("Strategy");
 		plot.setDomainAxis(domainAxis);
 		LogAxis rangeAxis = new LogAxis("Actions(Buys or Sells)");
-		rangeAxis.setRange(new Range(1.0, 20.0));
+		rangeAxis.setRange(new Range(0.5, 20.0));
 		plot.setRangeAxis(rangeAxis);
 
 		//plot.mapDatasetToRangeAxis(0, 0);// 1st dataset to 1st y-axis
