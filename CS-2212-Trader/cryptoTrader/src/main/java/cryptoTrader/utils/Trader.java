@@ -47,7 +47,7 @@ public class Trader {
 								//check price of coin2
 								Double price2 = prices[j];
 								
-								if(cond2.equals(">")) { //if both conditions are true, return true
+								if(cond2.equals("<")) { //if both conditions are true, return true
 									if(price2>checkPrice2) {
 										return true;
 									}
@@ -65,7 +65,7 @@ public class Trader {
 								//check price of coin2
 								Double price2 = prices[j];
 								
-								if(cond2.equals("<")) { //if both conditions are true, return true
+								if(cond2.equals(">")){ //if both conditions are true, return true
 									if(price2<checkPrice2) {
 										return true;
 									}
