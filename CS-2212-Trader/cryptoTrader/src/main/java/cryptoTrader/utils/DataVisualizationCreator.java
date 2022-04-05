@@ -204,14 +204,60 @@ public class DataVisualizationCreator {
 	private void createBar() {
 		
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-//		Those are hard-coded values!!!! 
-//		You will have to come up with a proper datastructure to populate the BarChart with live data!
+		// values
+		Object[][] data = traderdbObj.getData();
+		
+		// hashtable to store
+		Hashtable<String, Hashtable<String, String>> allData = new Hashtable<String Hashtable<String, int>>();
+		
+		// populating the hashable
+		for (int i = 0; i < data.length; i++) {
+			// grabbing the variables
+				String trader = data[i, 0];
+				String strategy = data[i, 1];
+
+				if (allData.get(trader) != null) {
+					if (allData.get(trader).get(strategy) != null) {
+						allData.get(trader).put(strategy, allData.get(trader).get(strategy) + 1);
+					} else {
+						allData.get(trader).put(strategy, 0);
+					}
+				} else {
+					allData.put(trader, new Hashtable<String, int>());
+				}
+		}
+		
+		System.out.println(allData);
+		
+		// putting data in
+		Enumeration<String> allTraders = allData.keys();
+		while (allTraders.hasMoreElements()) {
+			// trader element
+			String trader = allTraders.nextElement();
+			
+			// getting the other keys
+			Enumeration<String> allStrategies = allData.get(trader).keys();
+			
+			// inserting each strategy and their respective numbers
+			while (allStrategies.hasMoreElements()) {
+				String strat = allStrategies.nextElement();
+				
+				dataset.setValue(allData.get(trader).get(strat), trader, strat);
+			}
+		}
+		
+		// iterating though the dictionary
+		
+		/*
 		dataset.setValue(6, "Trader-1", "Strategy-A");
 		dataset.setValue(5, "Trader-2", "Strategy-B");
 		dataset.setValue(0, "Trader-3", "Strategy-E");
 		dataset.setValue(1, "Trader-4", "Strategy-C");
 		dataset.setValue(10, "Trader-5", "Strategy-D");
+		*/
 
+		
+		// creating the graph
 		CategoryPlot plot = new CategoryPlot();
 		BarRenderer barrenderer1 = new BarRenderer();
 
