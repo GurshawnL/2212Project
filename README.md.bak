@@ -1,10 +1,10 @@
 # Cryptocurrency Trading System - Group 46
 
 ## Authors
-Gurshawn Singh Lehal (glehal)\
-Imesh Nimsitha (inimsith)\
-Uzair Muhammed Salim (usalim2)\
-Gunveer Vilkhu (gvilkhu)\
+Gurshawn Singh Lehal (glehal)
+Imesh Nimsitha (inimsith)
+Uzair Muhammed Salim (usalim2)
+Gunveer Vilkhu (gvilkhu) 
 
 ## Overview
 This project aims to implement a system that performs and manages trading strategies in cryptocurrency, along with the aid of a graphical user interface and other features. The CoinGecko API will be utilized for the retrieval of data from the CoinGecko database.
